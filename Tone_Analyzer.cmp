@@ -1,0 +1,78 @@
+<!--Tone analyzer component  -->
+
+<aura:component controller="CalloutControl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    <ltng:require scripts="{!$Resource.ChartJS23}"  />    
+    
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="strongTone" type="Decimal" />
+    <aura:attribute name="strongToneName" type="String" />
+    <aura:attribute name="resultVar" type="String" />
+    
+    
+    
+    <lightning:card>
+        <div class="slds-text-heading_large">Customer Response Analysis</div>
+        <br></br>
+        <div class="slds-col slds-size_1-of-1">
+            <span>
+                <center>  
+                    <div style="background-color:#16325c;padding:1.2%;border-radius:.25rem .25rem .25rem .25rem;">
+                        <button class="slds-button slds-button_inverse" style="height:50px;width:200px;font-size:20px;border-radius:.25rem .25rem .25rem .25rem;" onclick="{! c.handleClick }">Analyse</button>
+                    </div>
+                </center>
+                <div>
+                    <canvas aura:id="chart"></canvas>
+                </div>
+                
+                <br></br>
+                <br></br>
+                
+                <br></br>
+                
+                <div class="slds-box" style="border-radius:.25rem .25rem .25rem .25rem;box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.1);">
+                    
+                    <lightning:tile label="Deciding tone : " href="/path/to/somewhere">
+                        <aura:set attribute="media">
+                            <lightning:icon iconName="standard:survey" size="large" />
+                        </aura:set>
+                        <dl class="slds-dl_horizontal">
+                            <dt class="slds-dl_horizontal__label">
+                                
+                                <div class="slds-text-heading_medium"> {!v.strongToneName} - {!v.strongTone}</div>
+                                
+                                
+                            </dt>
+                        </dl>
+                    </lightning:tile>
+                    <hr/>
+                    <lightning:tile label="Result : " href="/path/to/somewhere">
+                        <aura:set attribute="media">
+                            <lightning:icon iconName="standard:bot" size="large" />
+                        </aura:set>
+                        <dl class="slds-dl_horizontal">
+                            <dt class="slds-dl_horizontal__label">
+                                <div class="slds-text-heading_medium">{!v.resultVar}</div>
+                            </dt>
+                        </dl>
+                    </lightning:tile>
+                    
+                </div>
+            </span>
+        </div>
+        
+        
+        
+        
+    </lightning:card>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</aura:component>

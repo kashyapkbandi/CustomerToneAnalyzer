@@ -1,0 +1,40 @@
+public class CalloutControl {
+
+    
+    @AuraEnabled
+    
+    public static String getComments(Id recordid)
+    {
+        //recordid='5007F00000No2OfQAJ';
+        system.debug(recordid);
+        return JSON.serialize([Select OwnerId,(Select Id, CommentBody, CreatedById From CaseComments) From Case WHERE Id =:recordid]);
+    }
+    
+    @AuraEnabled
+	public static Object postToneData(String body)
+    {
+        
+       // system.debug(body);
+        Http http = new Http(); 
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone_chat?version=2017-09-21&statements=false');
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/json');
+        request.setHeader('Authorization', 'Basic XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+        
+        
+        request.setBody(body);
+        
+        HttpResponse response = http.send(request);
+        if (response.getStatusCode() != 201) {
+            System.debug('The status code returned was not expected: ' +
+                response.getStatusCode() + ' ' + response.getStatus());
+            System.debug(response.getBody());
+        } else {
+            System.debug(response.getBody());
+        }
+//        system.debug(JSON.serialize(response.getBody()));
+        return response.getBody();
+        
+        }
+}
